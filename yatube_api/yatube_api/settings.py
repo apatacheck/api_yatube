@@ -14,7 +14,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -24,8 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
     'rest_framework',
-    'rest_framework.authtoken',    
-    'api',   
+    'rest_framework.authtoken',
+    'api',
 ]
 
 MIDDLEWARE = [

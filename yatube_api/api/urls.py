@@ -11,15 +11,15 @@ router.register(r'groups', GroupViewSet, basename='groups')
 urlpatterns = [
     path('api-token-auth/', auth_views.obtain_auth_token),
     path('', include(router.urls)),
-    path('posts/<int:post_id>/comments/', 
-         CommentViewSet.as_view({'get': 'list', 'post': 'create'}), 
+    path('posts/<int:post_id>/comments/',
+         CommentViewSet.as_view({'get': 'list', 'post': 'create'}),
          name='comments-list'),
-    path('posts/<int:post_id>/comments/<int:pk>/', 
+    path('posts/<int:post_id>/comments/<int:pk>/',
          CommentViewSet.as_view({
-             'get': 'retrieve', 
-             'put': 'update', 
-             'patch': 'partial_update', 
+             'get': 'retrieve',
+             'put': 'update',
+             'patch': 'partial_update',
              'delete': 'destroy'
-         }), 
+         }),
          name='comments-detail'),
 ]
