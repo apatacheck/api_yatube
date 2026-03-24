@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
