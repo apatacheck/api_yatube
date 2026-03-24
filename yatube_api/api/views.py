@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
-from posts.models import Post, Group, Comment
+from posts.models import Post, Group
 from .serializers import PostSerializer, GroupSerializer, CommentSerializer
 
 
@@ -31,14 +31,17 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    def get_queryset(self):
+
+    def get_post(self):
         post_id = self.kwargs.get('post_id')
-        post = get_object_or_404(Post, id=post_id)
-        return Comment.objects.filter(post=post)
+        return get_object_or_404(Post, id=post_id)
+
+    def get_queryset(self):
+        post = self.get_post()
+        return post.comments.all()
 
     def perform_create(self, serializer):
-        post_id = self.kwargs.get('post_id')
-        post = get_object_or_404(Post, id=post_id)
+        post = self.get_post()
         serializer.save(author=self.request.user, post=post)
 
     def perform_update(self, serializer):
@@ -50,3 +53,4 @@ class CommentViewSet(viewsets.ModelViewSet):
         if instance.author != self.request.user:
             raise PermissionDenied('Удаление чужого комментария запрещено!')
         instance.delete()
+        
