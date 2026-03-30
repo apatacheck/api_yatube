@@ -7,7 +7,7 @@ User = get_user_model()
 
 class PostSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
-        slug_field='username',
+        slug_field='username',  #поле author отображается как имя пользователя
         read_only=True
     )
 
@@ -25,7 +25,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
-        slug_field='username',
+        slug_field='username', #поле author отображается как имя пользователя
         read_only=True
     )
 
