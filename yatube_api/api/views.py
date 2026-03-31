@@ -6,22 +6,22 @@ from posts.models import Post, Group
 from .serializers import PostSerializer, GroupSerializer, CommentSerializer
 
 
-class PostViewSet(viewsets.ModelViewSet):
+class PostViewSet(viewsets.ModelViewSet): #управление постами
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user) #сохранение
+        serializer.save(author=self.request.user) 
 
     def perform_update(self, serializer):
         if serializer.instance.author != self.request.user: #проверка авторства
             raise PermissionDenied('Изменение чужого контента запрещено!')
-        super().perform_update(serializer)
+        super().perform_update(serializer) 
 
     def perform_destroy(self, instance):
         if instance.author != self.request.user: #проверка авторства
             raise PermissionDenied('Удаление чужого контента запрещено!')
-        instance.delete()
+        instance.delete() 
 
 
 class GroupViewSet(viewsets.ReadOnlyModelViewSet): #Только GET-запросы
